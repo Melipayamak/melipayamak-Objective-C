@@ -25,8 +25,8 @@
 
 
 ```js
-SoapClient *soapclient = [[SoapClient alloc] initCred:@"username" password:@"password"];
-[soapclient SendSimpleSMS2:@"9123456789" sender:@"5000..." msg:@"تست وب سرویس ملی پیامک" flash:false];
+SoapClient *soapClient = [[SoapClient alloc] initCred:@"username" password:@"password"];
+[soapClient SendSimpleSMS2:@"9123456789" sender:@"5000..." msg:@"تست وب سرویس ملی پیامک" flash:false];
 ```
 
 <div dir='rtl'>
@@ -36,8 +36,8 @@ SoapClient *soapclient = [[SoapClient alloc] initCred:@"username" password:@"pas
 
 ```js
 // وب سرویس پیامک
-RestClient *restclient = [[RestClient alloc] initCred:@"username" password:@"password"];
-SoapClient *soapclient = [[SoapClient alloc] initCred:@"username" password:@"password"];
+RestClient *restClient = [[RestClient alloc] initCred:@"username" password:@"password"];
+SoapClient *soapClient = [[SoapClient alloc] initCred:@"username" password:@"password"];
 ```
 
 <div dir='rtl'>
@@ -73,7 +73,7 @@ SoapClient *soapclient = [[SoapClient alloc] initCred:@"username" password:@"pas
 
 ```js
 [restClient Send:to sender:from msg:message flash:isFlash];
-[soapclient SendSimpleSMS2:to sender:from msg:message flash:isFlash];
+[soapClient SendSimpleSMS2:to sender:from msg:message flash:isFlash];
 ```
 <div dir='rtl'>
   در آرگومان سوم روش soap میتوانید از هر تعداد مخاطب به عنوان آرایه استفاده کنید
@@ -81,59 +81,59 @@ SoapClient *soapclient = [[SoapClient alloc] initCred:@"username" password:@"pas
 
 #### دریافت وضعیت ارسال
 ```js
-restClient.GetDelivery(id: recId)
-soapClient.GetDelivery(id: recId)
-soapClient.GetDeliveries(array: [id1, id2])
+[restClient GetDelivery:recId];
+[soapClient GetDelivery:recId];
+[soapClient GetDeliveries:array];
 ```
 
 #### لیست پیامک ها
 
 ```js
-restClient.GetMessages(loc: location, indx: index, cnt: count, from: from)
-soapClient.getMessages(loc: location, from: from, indx: index, cnt: count)
+[restClient GetMessages:location from:from index:index count:count];
+[soapClient getMessages:location from:from index:index count:count];
 // جهت دریافت به صورت رشته ای
-soapClient.GetMessagesByDate(loc: location, from: from, indx: index, cnt: count, dfrom: dateFrom, dto: dateTo)
+[soapClient GetMessagesByDate:location from:from index:index count:count dateFrom:dFrom dateTo:dTo];
 //جهت دریافت بر اساس تاریخ
-soapClient.GetUsersMessagesByDate(loc: location, from: from, indx: index, cnt: count, dfrom: dateFrom, dto: dateTo)
+[soapClient GetUsersMessagesByDate:location from:from index:index count:count dateFrom:dFrom dateTo:dTo];
 // جهت دریافت پیام های کاربران بر اساس تاریخ 
 ```
 
 #### موجودی
 ```js
-restClient.GetCredit()
-soapClient.GetCredit()
+[restClient GetCredit];
+[soapClient GetCredit];
 ```
 
 #### تعرفه پایه / دریافت قیمت قبل از ارسال
 ```js
-restClient.GetBasePrice()
-soapClient.GetSmsPrice(irancellCnt: irancellCount, mtnCnt: mtnCount, from: from, msg: text)
+[restClient GetBasePrice];
+[soapClient GetSmsPrice:irancellCount mtnCnt:mtnCount from:from msg:text];
 ```
 #### لیست شماره اختصاصی
 ```js
-soapClient.GetUserNumbers()
+[soapClient GetUserNumbers];
 ```
 
 #### بررسی تعداد پیامک های دریافتی
 ```js
-soapClient.GetInboxCount(isRead: isRead)
+[soapClient GetInboxCount:isRead];
 //پیش فرض خوانده نشده 
 ```
 
 #### ارسال پیامک پیشرفته
 ```js
-soapClient.SendSms(arrayOfTo: [to1, to2], from: from, msg: text, isFlash: isflash, uhd: udh, arrayOfRecId: [id1, id2], arrayOfStatus: [st1, st2])
+[soapClient SendSms:arrayOfTo from:from msg:text flash:isFlash uhd:uhd arrayOfRecId:array arrayOfStatus:stArray];
 ```
 
 #### مشاهده مشخصات پیام
 ```js
-soapClient.GetMessagesReceptions(msgId: msgId, fromRows: fromRows)
+[soapClient GetMessagesReceptions:msgId fromrows:from];
 ```
 
 
 #### حذف پیام دریافتی
 ```js
-soapClient.RemoveMessages2(loc: location, msgIds: msgIds)
+[soapClient RemoveMessages2:location arrayOfMsgId:msgIds];
 ```
 
 
