@@ -110,7 +110,7 @@
 }
 
 -(void)parser: (NSXMLParser *)parser foundCharacters:(nonnull NSString *)string{
-    if (_currentElementName = @"SendSimpleSMS2Result") { //name of inner <tag> in soap response
+    if ([_currentElementName  isEqual: @"SendSimpleSMS2Result"]) { //name of inner <tag> in soap response
         _response = string;
     }
 }
