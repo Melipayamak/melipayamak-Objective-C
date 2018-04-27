@@ -1,9 +1,9 @@
 //
 //  soapClient.m
-//  mp_objC
+//  MeliPayamak
 //
 //  Created by Amirhossein Mehrvarzi on 4/24/18.
-//  Copyright © 2018 Amirhossein Mehrvarzi. All rights reserved.
+//  Copyright © 2018 MeliPayamak. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -22,7 +22,6 @@
     //use related webservice url here
     NSString *urlString = @"http://api.payamak-panel.com/post/send.asmx";
     
-    
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
@@ -38,32 +37,7 @@
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     
     [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [connection start];
-
-    
-    
-//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-//                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                                       timeoutInterval:60.0];
-//    
-//    [request addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [request addValue:[NSString stringWithFormat:@"%ld", msgLength] forHTTPHeaderField:@"Content-Length"];
-//    [request setHTTPMethod:@"POST"];
-//   
-//    NSData *postData = [soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false];
-//    [request setHTTPBody:postData];
-//    
-//    
-//    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        
-//    }];
-//    
-//    [postDataTask resume];
-    
-    
+    [connection start];   
     
 }
 
@@ -78,7 +52,6 @@
 
 
 // NSURLConnectionDelegate
-// NSURL
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [_responseData setLength:0];
@@ -90,20 +63,6 @@
     NSLog(@"something very bad happened here");
 }
 
-//func connection(_ connection: NSURLConnection, didFailWithError error: Error) {
-//    print("connection error = \(error)")
-//}
-
-//func connection(_ connection: NSURLConnection, didReceive response: URLResponse) {
-//    mutableData = NSMutableData()
-//}
-//
-//func connection(_ connection: NSURLConnection, didReceive data: Data) {
-//    self.mutableData.append(data)
-//}
-
-
-
 // NSXMLParserDelegate
 -(void)parser: (NSXMLParser *)parser didStartElement:(nonnull NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(nonnull NSDictionary<NSString *,NSString *> *)attributeDict{
     _currentElementName = elementName;
@@ -114,18 +73,6 @@
         _response = string;
     }
 }
-
-
-//func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-//    currentElementName = elementName
-//}
-//
-//func parser(_ parser: XMLParser, foundCharacters string: String) {
-//    if currentElementName == "SendSimpleSMS2Result" { //name of inner <tag> in soap response
-//        response = string
-//    }
-//}
-
 
 
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection {
