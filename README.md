@@ -25,8 +25,14 @@
 
 
 ```js
-SoapClient *soapClient = [[SoapClient alloc] initCred:@"username" password:@"password"];
-[soapClient SendSimpleSMS2:@"9123456789" sender:@"5000..." msg:@"تست وب سرویس ملی پیامک" flash:false];
+NSString *username = @"username";
+NSString *password = @"password";
+NSString *to = @"9123456789";
+NSString *from = @"5000...";
+NSString *message = @"تست وب سرویس ملی پیامک";
+BOOL isFlash = false;
+SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password];
+[soapClient SendSimpleSMS2:to sender:from msg:message flash:isFalse];
 ```
 
 <div dir='rtl'>
@@ -36,8 +42,8 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:@"username" password:@"pas
 
 ```js
 // وب سرویس پیامک
-RestClient *restClient = [[RestClient alloc] initCred:@"username" password:@"password"];
-SoapClient *soapClient = [[SoapClient alloc] initCred:@"username" password:@"password"];
+RestClient *restClient = [[RestClient alloc] initCred:username password:password];
+SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password];
 ```
 
 <div dir='rtl'>
