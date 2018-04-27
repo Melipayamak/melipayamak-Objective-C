@@ -1,9 +1,9 @@
 //
 //  RestClient.h
-//  mp_objC
+//  MeliPayamak
 //
 //  Created by Amirhossein Mehrvarzi on 4/25/18.
-//  Copyright © 2018 Amirhossein Mehrvarzi. All rights reserved.
+//  Copyright © 2018 MeliPayamak. All rights reserved.
 //
 
 #ifndef RestClient_h
