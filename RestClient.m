@@ -33,6 +33,106 @@
     
 }
 
+-(void)GetDelivery: (NSInteger) recId
+{
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@&recID=%@", _username, _password, recID];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_getDeliveryOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+}
+
+-(void)GetMessages: (NSInteger) location sender: (NSString *) from index: (NSString *) indx count: (NSInteger) cnt
+{
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@&Location=%@&From=%@&Index=%@&Count=%@", _username, _password, location, from, indx, cnt];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_getMessagesOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+}
+
+-(void)GetCredit
+{
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@", _username, _password];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_getCreditOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+}
+
+-(void)GetBasePrice
+{
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@", _username, _password];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_getBasePriceOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+}
+
+-(void)GetUserNumbers
+{
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@", _username, _password];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_getUserNumbersOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+}
+
 -(id)initCred:(NSString *)aUsername password:(NSString *)aPassword{
     if(self = [super init]){
         _username = aUsername;
