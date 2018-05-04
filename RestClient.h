@@ -34,6 +34,17 @@
                   msg: (NSString *) message
                 flash: (BOOL) isFlash;
 
+-(void)GetDelivery: (NSInteger) recId;
+
+-(void)GetMessages: (NSInteger) location
+					sender: (NSString *) from
+					index: (NSString *) indx
+					count: (NSInteger) cnt;
+
+-(void)GetCredit;
+-(void)GetBasePrice;
+-(void)GetUserNumbers;
+
 -(id)initCred:(NSString *)aUsername
      password:(NSString *)aPassword;
 
