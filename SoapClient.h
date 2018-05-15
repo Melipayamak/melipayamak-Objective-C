@@ -14,9 +14,17 @@
 
 @interface SoapClient : NSObject
 
-@property NSMutableData *responseData;
+@property NSMutableData *mutableData;
 @property NSString *response;
 @property NSString *currentElementName;
+@property NSString *expectedElementName;
+
+@property NSString *_sendEndpoint;
+@property NSString *_receiveEndpoint;
+@property NSString *_usersEndpoint;
+@property NSString *_contactsEndpoint;
+@property NSString *_actionsEndpoint;
+@property NSString *_scheduleEndpoint;
 
 @property NSString *username;
 @property NSString *password;
@@ -26,7 +34,12 @@
                   msg: (NSString *) message
                 flash: (BOOL) isFlash;
 
--(id)initCred:(NSString *)aUsername
-     password:(NSString *)aPassword;
+-(id)initCred: (NSString *) aUsername
+     password: (NSString *) aPassword;
+
+-(void)initAndSendRequest: (NSString *) endpoint
+				  	  msg: (NSString *) message;
+
+//place other methods which you are using here
 
 @end
