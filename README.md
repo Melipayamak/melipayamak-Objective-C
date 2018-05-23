@@ -60,7 +60,7 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password
 برای مطالعه بیشتر و دریافت راهنمای وب سرویس ها و آشنایی با پارامتر های ورودی و خروجی وب سرویس به صفحه معرفی
 [وب سرویس ملی پیامک](https://github.com/Melipayamak/Webservices)
 مراجعه نمایید .
-
+در تمامی متدها فرض گرفته ایم ARC در محیط کاربری شما فعال است. بنابراین از آزاد سازی حافظه بصورت دستی صرف نظر نمودیم.
 
 <hr/>
 
