@@ -1307,9 +1307,9 @@
 }  
 -(void)RemoveScheduleList: (NSArray *) scheduleIdList {
 
-    NSString *sBegin = @"<string>";
-    NSString *sEnd = @"</string>";
-    NSString *joined_sc = [scheduleIdList componentsJoinedByString:@"</string><string>"];
+    NSString *sBegin = @"<int>";
+    NSString *sEnd = @"</int>";
+    NSString *joined_sc = [scheduleIdList componentsJoinedByString:@"</int><int>"];
     NSString *_sch = [NSString stringWithFormat:@"%@%@%@", sBegin, joined_sc, sEnd];
 
     _sendingElementName = @"RemoveScheduleList";
