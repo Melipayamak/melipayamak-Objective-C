@@ -156,7 +156,7 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password
 
 #### ارسال سررسید
 ```js
-[soapClient AddNewUsance:to from:from msg:text isFlash:isflash ss:scheduleStartDateTime cntrpt:countRepeat se: scheduleEndDateTime prdType:periodType];
+[soapClient AddUsance:to from:from msg:text isFlash:isflash ss:scheduleStartDateTime rpt:repeat se: scheduleEndDateTime];
 ```
 
 #### مشاهده وضعیت ارسال زماندار
