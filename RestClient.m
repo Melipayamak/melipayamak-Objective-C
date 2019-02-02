@@ -33,6 +33,28 @@
     
 }
 
+-(void)SendByBaseNumber:(NSString *)text to:(NSString *)toNum bodyId:(NSInteger)bId
+{
+    
+    //set parameters
+    NSString *soapMessage = [NSString stringWithFormat:@"username=%@&password=%@&text=%@&to=%@&bodyId=%@", _username, _password, text, toNum, bId];
+    
+    NSURL *url = [NSURL URLWithString:[_endpoint stringByAppendingString:_sendByBaseNumberOp]];
+    
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [theRequest addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setHTTPBody:[soapMessage dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
+    
+}
+
 -(void)GetDelivery: (NSInteger) recId
 {
     //set parameters
@@ -141,6 +163,7 @@
         //enumerate operation values
         _endpoint = @"https://rest.payamak-panel.com/api/SendSMS/";
         _sendOp = @"SendSMS";
+        _sendByBaseNumberOp = @"BaseServiceNumber";
         _getDeliveryOp = @"GetDeliveries2";
         _getMessagesOp = @"GetMessages";
         _getCreditOp = @"GetCredit";
