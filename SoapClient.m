@@ -116,6 +116,33 @@
     [self initAndSendRequest:self._sendEndpoint msg:soapMessage];
 }
 
+-(void)SendByBaseNumber: (NSArray *) text
+          from: (NSString *) to
+       message: (NSInteger) bodyId {
+    
+    NSString *sBegin = @"<string>";
+    NSString *sEnd = @"</string>";
+    NSString *joined_text = [text componentsJoinedByString:@"</string><string>"];
+    NSString *_text = [NSString stringWithFormat:@"%@%@%@", sBegin, joined_text, sEnd];
+    
+    _sendingElementName = @"SendByBaseNumber";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><text>%@</text><to>%@</to><bodyId>%@</bodyId></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, _text, to, (long)bodyId, _sendingElementName];
+    [self initAndSendRequest:self._sendEndpoint msg:soapMessage];
+}
+
+-(void)SendByBaseNumber2: (NSString *) text
+          from: (NSString *) to
+       message: (NSInteger) bodyId {
+    
+    _sendingElementName = @"SendByBaseNumber2";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><text>%@</text><to>%@</to><bodyId>%@</bodyId></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, text, to, (long)bodyId, _sendingElementName];
+    [self initAndSendRequest:self._sendEndpoint msg:soapMessage];
+}
+
 -(void)getMessages: (NSInteger) location
               from: (NSString *) from
              index: (NSInteger) index
