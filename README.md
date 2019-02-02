@@ -85,6 +85,13 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password
   در آرگومان سوم روش soap میتوانید از هر تعداد مخاطب به عنوان آرایه استفاده کنید
 </div>
 
+#### ارسال از خط خدماتی اشتراکی
+
+```js
+[restClient SendByBaseNumber:text to:toNum bodyId:bid];
+[soapClient SendByBaseNumber2:text to:toNum bodyId:bid];
+```
+
 #### دریافت وضعیت ارسال
 ```js
 [restClient GetDelivery:recId];
