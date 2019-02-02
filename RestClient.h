@@ -34,6 +34,10 @@
                   msg: (NSString *) message
                 flash: (BOOL) isFlash;
 
+-(void)SendByBaseNumber: (NSString *) text
+				to: (NSString *) toNum
+				bodyId: (NSInteger) bId;
+
 -(void)GetDelivery: (NSInteger) recId;
 
 -(void)GetMessages: (NSInteger) location
