@@ -41,6 +41,7 @@
         self._contactsEndpoint = @"http://api.payamak-panel.com/post/contacts.asmx";
         self._actionsEndpoint = @"http://api.payamak-panel.com/post/actions.asmx";
         self._scheduleEndpoint = @"http://api.payamak-panel.com/post/Schedule.asmx";
+        self._voiceEndpoint = @"http://api.payamak-panel.com/post/voice.asmx";
     }
     return self;
 }
@@ -1359,6 +1360,87 @@ scheduleEndDateTime: (NSDate *) scheduleEndDateTime {
     NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><scheduleIdList>%@</scheduleIdList></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, _sch, _sendingElementName];
     [self initAndSendRequest:self._scheduleEndpoint msg:soapMessage];
 }
+
+//Voice API Operations
+
+-(void)GetSendSMSWithSpeechTextStatus: (NSInteger *) recId {
+    
+    _sendingElementName = @"GetSendSMSWithSpeechTextStatus";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><recId>%@</recId></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, (long)recId, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
+-(void)SendBulkSpeechText: (NSString *) title
+            body: (NSString *) body
+            receivers: (NSString *) receivers
+            DateToSend: (NSString *) DateToSend
+            repeatCount: (NSInteger) repeatCount {
+    
+    _sendingElementName = @"SendBulkSpeechText";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><title>%@</title><body>%@</body><receivers>%@</receivers><DateToSend>%@</DateToSend><repeatCount>%@</repeatCount></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, title, body, receivers, DateToSend, (long)repeatCount, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
+-(void)SendBulkVoiceSMS: (NSString *) title
+            voiceFileId: (NSInteger) voiceFileId
+            receivers: (NSString *) receivers
+            DateToSend: (NSString *) DateToSend
+            repeatCount: (NSInteger) repeatCount {
+    
+    _sendingElementName = @"SendBulkVoiceSMS";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><title>%@</title><voiceFileId>%@</voiceFileId><receivers>%@</receivers><DateToSend>%@</DateToSend><repeatCount>%@</repeatCount></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, title, (long)voiceFileId, receivers, DateToSend, (long)repeatCount, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
+-(void)SendSMSWithSpeechText: (NSString *) smsBody
+            speechBody: (NSString *) speechBody
+            from: (NSString *) from
+            to: (NSString *) to {
+    
+    _sendingElementName = @"SendSMSWithSpeechText";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><smsBody>%@</smsBody><speechBody>%@</speechBody><from>%@</from><to>%@</to></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, smsBody, speechBody, from, to, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
+-(void)SendSMSWithSpeechTextBySchduleDate: (NSString *) smsBody
+            speechBody: (NSString *) speechBody
+            from: (NSString *) from
+            to: (NSString *) to
+            scheduleDate: (NSDate *) scheduleDate {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy"];//use relative format here
+    
+    //Optionally for time zone conversions
+    // [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    
+    NSString *stringSDate = [formatter stringFromDate:scheduleDate];
+
+    _sendingElementName = @"SendSMSWithSpeechTextBySchduleDate";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><smsBody>%@</smsBody><speechBody>%@</speechBody><from>%@</from><to>%@</to><scheduleDate>%@</scheduleDate></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, smsBody, speechBody, from, to, stringSDate, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
+-(void)UploadVoiceFile: (NSString *) title
+            base64StringFile: (NSString *) base64StringFile {
+    
+    _sendingElementName = @"UploadVoiceFile";
+    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
+    
+    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><title>%@</title><base64StringFile>%@</base64StringFile></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, title, base64StringFile, _sendingElementName];
+    [self initAndSendRequest:self._voiceEndpoint msg:soapMessage];
+}
+
 
 // NSURLConnectionDelegate
 
