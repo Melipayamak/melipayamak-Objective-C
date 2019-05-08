@@ -48,6 +48,8 @@
 
 @property NSString *_scheduleEndpoint;
 
+@property NSString *_voiceEndpoint;
+
 
 @property NSString *username;
 
