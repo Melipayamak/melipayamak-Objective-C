@@ -1469,10 +1469,10 @@ scheduleEndDateTime: (NSDate *) scheduleEndDateTime {
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection {
     //    [connection release]; // setting 'Objective-C Automatic Reference Counting' to YES
     
-    NSString* responseString = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
+    NSString* responseString = [[NSString alloc] initWithData:_response encoding:NSUTF8StringEncoding];
     NSLog(@"the response is %@", responseString);
     
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:_responseData];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:_response];
     [xmlParser setDelegate:self];
     [xmlParser parse];
     [xmlParser setShouldResolveExternalEntities:true];
