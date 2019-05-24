@@ -176,6 +176,9 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password
 [soapClient RemoveSchedule:schId];
 ```
 
+<div dir='rtl'>
+  ### وب سرویس پیامک صوتی
+</div>
 
 ####  ارسال پیامک همراه با تماس صوتی
 ```js
@@ -191,6 +194,24 @@ SoapClient *soapClient = [[SoapClient alloc] initCred:username password:password
 ```js
 [soapClient GetSendSMSWithSpeechTextStatus:recId];
 ```
+
+#### تماس انبوه زماندار
+```js
+[soapClient SendBulkSpeechText:title body:body receivers:receivers DateToSend:DateToSend repeatCount:repeatCount];
+```
+
+
+#### تماس انبوه زماندار با انتخاب فایل
+```js
+[soapClient SendBulkVoiceSMS:title voiceFileId:voiceFileId receivers:receivers DateToSend:DateToSend repeatCount:repeatCount];
+```
+
+
+#### آپلود فایل صوتی
+```js
+[soapClient UploadVoiceFile:title base64StringFile:base64StringFile];
+```
+
 <div dir='rtl'>
   
 ### وب سرویس ارسال انبوه/منطقه ای
