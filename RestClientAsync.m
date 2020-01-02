@@ -1,16 +1,18 @@
 //
-//  RestClient.m
-//  MeliPayamak
+//  RestClientAsync.m
+//  mp_objC
 //
-//  Created by Amirhossein Mehrvarzi on 4/25/18.
-//  Copyright © 2018 MeliPayamak. All rights reserved.
+//  Created by Amirhossein Mehrvarzi on 11/26/19.
+//  Copyright © 2019 Amirhossein Mehrvarzi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "RestClient.h"
+#import "RestClientAsync.h"
 #import "RestResponse.h"
 
-@implementation RestClient
+
+
+@implementation RestClientAsync
 
 
 -(void)makeRequest:(NSString *)endpoint msg:(NSString *)message {
@@ -23,10 +25,13 @@
     [theRequest setHTTPMethod:@"POST"];
     [theRequest setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:theRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if(error)
+            NSLog(@"error is : %@", error);
+        else NSLog(@"response is : %@", response);
+    }];
     
-    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [connection start];
 }
 
 
@@ -35,7 +40,7 @@
     
     //set parameters
     NSString *msgData = [NSString stringWithFormat:@"username=%@&password=%@&to=%@&from=%@&text=%@&isFlash=%@", _username, _password, to, from, message, isFlash ? @"true" : @"false"];
-        
+
     [self makeRequest:[_endpoint stringByAppendingString:_sendOp] msg:msgData];
     
 }
@@ -114,29 +119,4 @@
 }
 
 
-// NSURLConnectionDelegate
-// NSURL
-
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [_responseData setLength:0];
-}
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_responseData appendData:data];
-}
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"something very bad happened here");
-}
-
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
-    //    [connection release]; // setting 'Objective-C Automatic Reference Counting' to YES
-    
-    RestResponse *response = [[RestResponse alloc] init: _responseData];
-    NSLog(@"response number is : %@", response.RetStatus);
-    
-    //    [responseString release]; // setting 'Objective-C Automatic Reference Counting' to YES
-}
-
 @end
-
-

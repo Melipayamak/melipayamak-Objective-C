@@ -1,31 +1,38 @@
 //
-//  soapClient.m
-//  MeliPayamak
+//  SoapClientAsync.m
+//  mp_objC
 //
-//  Created by Amirhossein Mehrvarzi on 4/24/18.
-//  Copyright © 2018 MeliPayamak. All rights reserved.
+//  Created by Amirhossein Mehrvarzi on 11/26/19.
+//  Copyright © 2019 Melipayamak. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "SoapClient.h"
+#import "SoapClientAsync.h"
 
-@implementation SoapClient
+@implementation SoapClientAsync
 
 -(void)initAndSendRequest:(NSString *)endpoint msg:(NSString *)message {
     
-    NSURL *url = [NSURL URLWithString:endpoint];
-    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    long msgLength = message.length;
+    dispatch_queue_t queue = dispatch_queue_create("com.melipayamak.soap", NULL);
+    dispatch_async(queue, ^{
     
-    [theRequest addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [theRequest addValue:[NSString stringWithFormat:@"%ld", msgLength] forHTTPHeaderField:@"Content-Length"];
-    [theRequest setHTTPMethod:@"POST"];
-    [theRequest setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+        NSURL *url = [NSURL URLWithString:endpoint];
+        NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        long msgLength = message.length;
+        
+        [theRequest addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [theRequest addValue:[NSString stringWithFormat:@"%ld", msgLength] forHTTPHeaderField:@"Content-Length"];
+        [theRequest setHTTPMethod:@"POST"];
+        [theRequest setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false]];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+        
+        [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [connection start];
+        
+    });
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     
-    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [connection start];
 }
 
 
@@ -277,10 +284,10 @@
 //duplicate function commented
 //-(void)RemoveMessages : (NSString *) location
 //                msgIds: (NSString *) msgIds {
-//    
+//
 //    _sendingElementName = @"RemoveMessages";
 //    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
-//    
+//
 //    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><location>%@</location><msgIds>%@</msgIds></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, location, msgIds, _sendingElementName];
 //    [SoapClient initAndSendRequest:self._receiveEndpoint msg:soapMessage];
 //}
@@ -411,10 +418,10 @@
 }
 //duplicate function commented
 //-(void)GetInboxCount: (BOOL) isRead {
-//    
+//
 //    _sendingElementName = @"GetInboxCount";
 //    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
-//    
+//
 //    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><isRead>%@</isRead></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, isRead ? @"true" : @"false", _sendingElementName];
 //    [SoapClient initAndSendRequest:self._receiveEndpoint msg:soapMessage];
 //}
@@ -1090,7 +1097,7 @@ destinationGroupId: (NSInteger) destinationGroupId
 //                    fromRows: (NSInteger) fromRows {
 //    _sendingElementName = @"GetMessagesReceptions";
 //    _expectedElementName = [_sendingElementName stringByAppendingString:@"Response"];
-//    
+//
 //    NSString *soapMessage = [NSString stringWithFormat:@"<?xml version='1.0' encoding='utf-8'?><soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'><soap:Body><%@ xmlns='http://tempuri.org/'><username>%@</username><password>%@</password><msgId>%@</msgId><fromRows>%@</fromRows></%@></soap:Body></soap:Envelope>", _sendingElementName, _username, _password, msgId, fromRows, _sendingElementName];
 //    [SoapClient initAndSendRequest:self._actionsEndpoint msg:soapMessage];
 //}

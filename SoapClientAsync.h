@@ -1,18 +1,18 @@
 //
-//  SoapClient.h
+//  SoapClientAsync.h
 //  mp_objC
 //
-//  Created by Amirhossein Mehrvarzi on 4/24/18.
-//  Copyright © 2018 Amirhossein Mehrvarzi. All rights reserved.
+//  Created by Amirhossein Mehrvarzi on 11/26/19.
+//  Copyright © 2019 Amirhossein Mehrvarzi. All rights reserved.
 //
 
-#ifndef SoapClient_h
-#define SoapClient_h
+#ifndef SoapClientAsync_h
+#define SoapClientAsync_h
 
 
-#endif /* SoapClient_h */
+#endif /* SoapClientAsync_h */
 
-@interface SoapClient : NSObject
+@interface SoapClientAsync : NSObject
 
 @property NSMutableData *mutableData;
 @property NSString *response;

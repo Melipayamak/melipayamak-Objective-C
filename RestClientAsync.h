@@ -1,18 +1,19 @@
 //
-//  RestClient.h
+//  RestClientAsync.h
 //  mp_objC
 //
-//  Created by Amirhossein Mehrvarzi on 4/25/18.
-//  Copyright © 2018 Amirhossein Mehrvarzi. All rights reserved.
+//  Created by Amirhossein Mehrvarzi on 11/26/19.
+//  Copyright © 2019 Amirhossein Mehrvarzi. All rights reserved.
 //
 
-#ifndef RestClient_h
-#define RestClient_h
+#ifndef RestClientAsync_h
+#define RestClientAsync_h
 
 
-#endif /* RestClient_h */
+#endif /* RestClientAsync_h */
 
-@interface RestClient : NSObject
+
+@interface RestClientAsync : NSObject
 
 @property NSMutableData *responseData;
 @property NSString *response;
@@ -31,11 +32,14 @@
 @property NSString *password;
 
 -(void)Send: (NSString *) to
-               sender: (NSString *) from
-                  msg: (NSString *) message
-                flash: (BOOL) isFlash;
+     sender: (NSString *) from
+        msg: (NSString *) message
+      flash: (BOOL) isFlash;
 
 -(id)initCred:(NSString *)aUsername
      password:(NSString *)aPassword;
+
+-(void)makeRequest:(NSString *)endpoint
+     msg:(NSString *)message;
 
 @end
